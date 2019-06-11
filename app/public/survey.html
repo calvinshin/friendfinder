@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</head>
+<body>
+    
+<h1>Survey</h1>
+<div class="container" id="surveyArea">
+    <div class="row">
+        <div class="col-12 col-md-3 question">Question 1 is tha tI would rather eat fish than an egg</div>
+        <div class="btn-group btn-group-toggle col-12 col-md-9" data-toggle="buttons">
+            <label class="btn btn-light col">
+                <input type="radio" name="A" id="A1" aria-disabled> Strongly Disagree
+            </label>
+            <label class="btn btn-light col">
+                <input type="radio" name="A" id="A2"> 
+            </label>
+            <label class="btn btn-light col">
+                <input type="radio" name="A" id="A3"> 
+            </label>
+            <label class="btn btn-light col">
+                <input type="radio" name="A" id="A4"> Neither Agree nor Disagree
+            </label>
+            <label class="btn btn-light col">
+                <input type="radio" name="A" id="A5"> 
+            </label>
+            <label class="btn btn-light col">
+                <input type="radio" name="A" id="A6"> 
+            </label>
+            <label class="btn btn-light col">
+                <input type="radio" name="A" id="A7"> Strongly Agree
+            </label>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+var questions = ["Question 1", "Question 2", "Question 3"];
+
+
+for (var i = 0; i < questions.length; i += 1) {
+    // create a row for the question
+    var row = document.createElement("div");
+    row.classList = "row";
+
+    // create a column for the question
+    var question = document.createElement("div");
+    question.classList = "col-12 col-md-3 question";
+    question.innerText = questions[i];
+
+    // create a column for the response
+    var questionColumn = document.createElement("div");
+    questionColumn.classList = "btn-group btn-group-toggle col-12 col-md-9";
+    questionColumn.setAttribute("data-toggle", "buttons");
+
+    // create all 7 response choices and put them into the questionColumn
+    for(var j = 1; j < 8; j += 1) {
+        var label = document.createElement("label");
+        label.classList = "btn btn-light col"
+
+        var input = document.createElement("input");
+        input.setAttribute("type", "radio");
+        input.setAttribute("name", "Q" + i);
+        input.setAttribute("id", "Q" + i + "A" + j);
+
+        label.append(input, j);
+        
+        questionColumn.append(label);
+    }
+
+    row.append(question, questionColumn);
+
+    document.getElementById("surveyArea").append(row);
+}
+
+
+</script>
+
+</body>
+</html>
