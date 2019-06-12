@@ -14,6 +14,10 @@
     
 <h1>Survey</h1>
 <div class="container" id="surveyArea">
+    <div class="row m-3">
+        <div class="m-2">Name: </div>
+        <input type="text" name="Name" id="name">
+    </div>
     <div class="row">
         <div class="col-12 col-md-3 question">Question 1 is tha tI would rather eat fish than an egg</div>
         <div class="btn-group btn-group-toggle col-12 col-md-9" data-toggle="buttons">
@@ -41,8 +45,16 @@
         </div>
     </div>
 </div>
+
+
+<!-- document.querySelector('input[name="Q0"]:checked').value; -->
+
 <script type="text/javascript">
-var questions = ["Question 1", "Question 2", "Question 3"];
+var questions = ["I believe pineapples are a valid topping on pizza",
+"Being politically and socially aware is important to me",
+"I am an early riser",
+"The taste of food is important to me",
+];
 
 
 for (var i = 0; i < questions.length; i += 1) {

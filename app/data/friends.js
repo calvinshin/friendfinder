@@ -1,0 +1,88 @@
+friends = [
+    {
+        name: "Andy",
+        image: "test.html",
+        Q1: 5,
+        Q2: 3,
+        Q3: 7,
+        Q4: 5,
+        Q5: 4,
+        Q6: 3,
+        Q7: 1,
+        Q8: 1,
+        Q9: 2,
+        Q10: 5
+    },
+    {
+        name: "Nancy",
+        image: "test.html",
+        Q1: 1,
+        Q2: 1,
+        Q3: 1,
+        Q4: 1,
+        Q5: 1,
+        Q6: 1,
+        Q7: 1,
+        Q8: 1,
+        Q9: 1,
+        Q10: 1
+    },
+    {
+    name: "Polly",
+    image: "test.html",
+    Q1: 7,
+    Q2: 7,
+    Q3: 7,
+    Q4: 7,
+    Q5: 7,
+    Q6: 7,
+    Q7: 7,
+    Q8: 7,
+    Q9: 7,
+    Q10: 7
+    },
+    {
+    name: "Mordenkai",
+    image: "test.html",
+    Q1: 2,
+    Q2: 5,
+    Q3: 4,
+    Q4: 1,
+    Q5: 7,
+    Q6: 3,
+    Q7: 1,
+    Q8: 2,
+    Q9: 6,
+    Q10: 3
+    },
+    {
+    name: "Jimbo",
+    image: "test.html",
+    Q1: 2,
+    Q2: 2,
+    Q3: 2,
+    Q4: 6,
+    Q5: 4,
+    Q6: 7,
+    Q7: 2,
+    Q8: 3,
+    Q9: 5,
+    Q10: 2
+    },
+    {
+    name: "Paulson",
+    image: "test.html",
+    Q1: 5,
+    Q2: 3,
+    Q3: 2,
+    Q4: 3,
+    Q5: 6,
+    Q6: 3,
+    Q7: 2,
+    Q8: 6,
+    Q9: 4,
+    Q10: 2
+},
+]
+
+module.exports = friends;
