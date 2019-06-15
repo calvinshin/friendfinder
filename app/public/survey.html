@@ -9,43 +9,39 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
 <body>
-    
-<h1>Survey</h1>
+<div class="container mt-4">
+    <h1>Survey</h1>
+</div>  
 <div class="container" id="surveyArea">
     <div class="row m-3">
         <div class="m-2">Name: </div>
         <input type="text" name="Name" id="name">
     </div>
     <div class="row">
-        <div class="col-12 col-md-3 question">Question 1 is tha tI would rather eat fish than an egg</div>
+        <div class="col-12 col-md-3 question">Answer the questions below:</div>
         <div class="btn-group btn-group-toggle col-12 col-md-9" data-toggle="buttons">
-            <label class="btn btn-light col">
-                <input type="radio" name="A" id="A1" aria-disabled> Strongly Disagree
+            <label class="btn btn-danger col">
+                <input type="radio" name="A" id="A1"> 1 - Strongly Disgree
             </label>
             <label class="btn btn-light col">
-                <input type="radio" name="A" id="A2"> 
+                <input type="radio" name="A" id="A4"> 4 - Neutral
             </label>
-            <label class="btn btn-light col">
-                <input type="radio" name="A" id="A3"> 
-            </label>
-            <label class="btn btn-light col">
-                <input type="radio" name="A" id="A4"> Neither Agree nor Disagree
-            </label>
-            <label class="btn btn-light col">
-                <input type="radio" name="A" id="A5"> 
-            </label>
-            <label class="btn btn-light col">
-                <input type="radio" name="A" id="A6"> 
-            </label>
-            <label class="btn btn-light col">
-                <input type="radio" name="A" id="A7"> Strongly Agree
+            <label class="btn btn-success col">
+                <input type="radio" name="A" id="A7"> 7 - Strongly Agree
             </label>
         </div>
     </div>
 </div>
 
+<div class="container">
+
+    <button class="btn btn-success mb-4" id="submit">
+        Find your friend!
+    </button>
+</div>
 
 <!-- document.querySelector('input[name="Q0"]:checked').value; -->
 
@@ -53,34 +49,50 @@
 var questions = ["I believe pineapples are a valid topping on pizza",
 "Being politically and socially aware is important to me",
 "I am an early riser",
-"The taste of food is important to me",
+"I plan detailed itineraries for trips",
+"I rarely get upset",
+"I am affectionate with people I care about",
+"I would rather spend time with a small group of friends than a large party",
+"I am a whimsical person",
+"I regret some decisions I've made in the past",
+"I like thinking about the meaning of life"
 ];
 
 
 for (var i = 0; i < questions.length; i += 1) {
     // create a row for the question
     var row = document.createElement("div");
-    row.classList = "row";
+    row.classList = "row my-4";
 
     // create a column for the question
     var question = document.createElement("div");
     question.classList = "col-12 col-md-3 question";
-    question.innerText = questions[i];
+    var questionHeader = document.createElement("div");
+    questionHeader.innerText = "Question " + (i+1);
+    questionHeader.setAttribute("style", "font-weight: 700");
+    var questionContent = document.createElement("div");
+    questionContent.innerText = questions[i];
+    // append the question details to the question
+    question.append(questionHeader);
+    question.append(questionContent);
+
 
     // create a column for the response
     var questionColumn = document.createElement("div");
-    questionColumn.classList = "btn-group btn-group-toggle col-12 col-md-9";
+    questionColumn.classList = "btn-group btn-group-toggle col-12 col-md-9 d-flex align-items-center";
     questionColumn.setAttribute("data-toggle", "buttons");
 
     // create all 7 response choices and put them into the questionColumn
     for(var j = 1; j < 8; j += 1) {
         var label = document.createElement("label");
-        label.classList = "btn btn-light col"
+        label.classList = "btn btn-secondary col"
+        label.setAttribute("style", "height: 40px;");
 
         var input = document.createElement("input");
         input.setAttribute("type", "radio");
         input.setAttribute("name", "Q" + i);
         input.setAttribute("id", "Q" + i + "A" + j);
+        input.setAttribute("value", j);
 
         label.append(input, j);
         
@@ -92,6 +104,45 @@ for (var i = 0; i < questions.length; i += 1) {
     document.getElementById("surveyArea").append(row);
 }
 
+var submit = document.getElementById("submit")
+submit.addEventListener("click", function() {
+    let surveyResponse = {};
+    if(document.getElementById("name").value === "") {
+        return alert("Please add a name.");
+    }
+    surveyResponse.name = document.getElementById("name").value
+
+    for(let i = 0; i < 10; i++) {
+            let answer = document.querySelector('input[name="Q' + (i) + '"]:checked')
+            if(answer === null) {
+                return alert("Please fill out question #" + (i+1));
+            }
+            surveyResponse["Q" + parseInt(i+1)] = answer.value;
+        } 
+
+        // If all the questions answered, submit
+
+        $.post("/api/friends", surveyResponse, function(data) {
+            console.log(data);
+
+            var popup = document.createElement("div");
+            popup.setAttribute("id", "popup");
+            popup.classList = "p-4"
+            popup.setAttribute("style", "position: fixed; top: 20%; left: 50%; transform: translateX(-50%); height: 40%; width: 40%; background-color: #FAFAFA; z-index: 50")
+            popup.innerText = "Congratulations! Your closest friend is " + data.name + "!"
+
+            document.getElementById("surveyArea").append(popup);
+
+            popup.addEventListener("click", function() {
+                popup.parentNode.removeChild(popup);
+            });
+
+
+
+        })
+
+    } 
+)
 
 </script>
 
